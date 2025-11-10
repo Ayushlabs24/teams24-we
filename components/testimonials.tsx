@@ -1,0 +1,240 @@
+"use client"
+
+import React, { useEffect, useState } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
+const testimonials = [
+  {
+    name: "Niranjan Venugopal",
+    title: "CEO Specflicks",
+    quote:
+      "We've tried multiple agencies and it didn't work. With teams24 we had no timeline constraints or boundaries in setting up our core team ...",
+    videoId: "okh85F29Gjg",
+    image: "/testimonials/niranjan.jpg",
+  },
+  {
+    name: "Sarah Chen",
+    title: "Founder TechStart",
+    quote:
+      "The speed at which teams24 deployed our team was incredible. No recruitment chaos, just immediate execution power ...",
+    videoId: "TUKk3sptrt0",
+    image: "/testimonials/sarah.jpg",
+  },
+  {
+    name: "Michael Roberts",
+    title: "COO GlobalTech",
+    quote:
+      "Best decision we made for scaling our engineering team. The quality and commitment exceeded all expectations ...",
+    videoId: "vzVbqXVID-Y",
+    image: "/testimonials/michael.jpg",
+  },
+]
+
+export default function Testimonials() {
+  const [current, setCurrent] = useState(0)
+  const [playerKey, setPlayerKey] = useState(0)
+
+  useEffect(() => {
+    setPlayerKey((k) => k + 1)
+  }, [current])
+
+  const next = () => setCurrent((c) => (c + 1) % testimonials.length)
+  const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length)
+
+  const t = testimonials[current]
+
+  return (
+    <section className="w-full flex justify-center bg-black text-white font-[Manrope] py-16 px-6 relative overflow-visible">
+      <div
+        className="relative max-w-[1440px] w-full"
+        style={{ height: "auto", opacity: 1 }}>
+        {/* Header */}
+        <div
+          className="absolute lg:static z-20"
+          style={{
+            width: 204,
+            height: 32,
+            top: 64,
+            left: 72,
+          }}>
+          <h2
+            className="font-[500] text-[22px] leading-[32px] text-white"
+            style={{
+              letterSpacing: "-0.02em",
+              fontFamily: "Manrope",
+            }}>
+            What our clients say
+          </h2>
+          <div className="mt-4 border-t border-white/20 w-[200px]" />
+        </div>
+
+        {/* Main content */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:mt-[100px] gap-8 lg:gap-0 relative z-10">
+          {/* Quote box */}
+          <div
+            className="bg-[rgba(255,255,255,0.02)] rounded-[32px] p-8 relative order-2 lg:order-1"
+            style={{
+              width: "100%",
+              maxWidth: 578,
+              height: 360,
+            }}>
+            <div
+              className="flex flex-col"
+              style={{ width: 480, height: 160, gap: 8 }}>
+              <div
+                className="text-gray-500"
+                style={{
+                  width: 32,
+                  height: 32,
+                  fontSize: 40,
+                  lineHeight: "32px",
+                }}>
+                "
+              </div>
+              <p
+                className="text-white"
+                style={{
+                  width: 480,
+                  height: 120,
+                  fontWeight: 600,
+                  fontSize: 26,
+                  lineHeight: "30px",
+                  letterSpacing: "-0.04em",
+                }}>
+                {t.quote}
+              </p>
+            </div>
+
+            <div
+              className="absolute flex items-center gap-3"
+              style={{
+                width: 241,
+                height: 58,
+                top: 270,
+                left: 44,
+              }}>
+              <img
+                src={t.image}
+                alt={t.name}
+                className="w-14 h-14 rounded-full object-cover"
+              />
+              <div>
+                <p className="font-bold">{t.name}</p>
+                <p className="text-gray-400 text-sm">{t.title}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Video section */}
+          <div
+            className="rounded-[32px] overflow-hidden border border-white/10 bg-gray-900 order-1 lg:order-2"
+            style={{
+              width: "100%",
+              maxWidth: 686,
+              height: 360,
+            }}>
+            <iframe
+              key={playerKey}
+              title={`testimonial-video-${current}`}
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${t.videoId}?autoplay=1&mute=1&rel=0&modestbranding=1`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+
+        {/* Indicators + Controls */}
+        <div className="flex flex-col lg:flex-row justify-between lg:items-center mt-10 relative z-30">
+          {/* Dots */}
+          <div
+            className="flex gap-2 items-center justify-center absolute lg:static"
+            style={{
+              width: 144,
+              height: 40,
+              top: 593,
+              left: 116,
+              borderRadius: 72,
+            }}>
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                aria-label={`Go to testimonial ${idx + 1}`}
+                onClick={() => setCurrent(idx)}
+                className={`rounded-full transition-all ${
+                  idx === current
+                    ? "w-8 h-3 bg-white"
+                    : "w-2 h-2 bg-gray-600"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Prev / Next */}
+          <div
+            className="absolute lg:static flex gap-4 justify-center"
+            style={{
+              width: 120,
+              height: 52,
+              top: 586,
+              left: 1248,
+              opacity: 1,
+            }}>
+            <button
+              onClick={prev}
+              className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition z-40">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={next}
+              className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition z-40">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Responsive Adjustments */}
+      <style jsx>{`
+        @media (max-width: 1024px) {
+          section {
+            padding: 4rem 1rem;
+          }
+          /* Make sure buttons and dots remain visible */
+          div[style*="left: 1248px"],
+          div[style*="left: 116px"] {
+            position: static !important;
+            margin: 1rem auto 0 auto;
+            justify-content: center;
+            display: flex;
+            z-index: 50;
+          }
+          .flex-col {
+            flex-direction: column;
+          }
+        }
+
+        @media (max-width: 768px) {
+          h2 {
+            font-size: 18px;
+            text-align: center;
+            font-weight: 500 !important;
+          }
+          iframe {
+            height: 240px !important;
+          }
+          p {
+            font-size: 18px !important;
+            line-height: 26px !important;
+          }
+          section {
+            overflow: visible !important;
+          }
+          button {
+            z-index: 50 !important;
+          }
+        }
+      `}</style>
+    </section>
+  )
+}
