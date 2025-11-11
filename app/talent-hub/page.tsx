@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { GlassmorphicNavbar } from "@/components/glassmorphic-navbar"
+import GlassmorphicNavbar from "@/components/glassmorphic-navbar"
 import { TalentHubHero } from "@/components/talent-hub-hero"
 import { TalentHubServices } from "@/components/talent-hub-services"
 import HeroSection from "@/components/HeroSection"
