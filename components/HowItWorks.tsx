@@ -92,7 +92,8 @@ const HowItWorks = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative bg-black text-white font-[Manrope]">
+
+    <div ref={containerRef} className="relative bg-black text-white font-[Manrope]" id="how-it-works">
       {/* Sticky header scoped to section */}
       <div className="sticky top-0 z-30 bg-black/95 backdrop-blur-sm py-6 px-6 border-b border-white/20">
         <h2 className="text-lg md:text-xl font-normal tracking-wide">How it works</h2>
